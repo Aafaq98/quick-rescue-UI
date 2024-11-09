@@ -1,0 +1,145 @@
+<div>
+    <a routerLink="/client"  routerLinkActive="active">Back</a>
+    @if (account) {
+        <div class="p-2 mb-5">
+            <h2>{{account.name}}</h2>
+            <span>{{account.emailDomain}}</span>
+        </div>
+    }
+
+    <p-table [value]="contact" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>phoneNumber</th>
+                <th><button pButton label="add" (click)="handleAddContact()"></button></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-i>
+            <tr>
+                <td><span>{{ i?.firstName }}</span> <span>{{ i?.lastName }}</span></td>
+                <td>{{ i?.address?.city }}</td>
+                <td>{{ i?.phoneNumber }}</td>
+                <td>
+                    <button pButton type="button" label="edit" (click)="handleEditContact(i)"></button>
+                    <button pButton type="button" label="delete" (click)="handleDelete(i.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="12">No recoard found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+</div>
+
+
+<p-dialog header="Header" [(visible)]="contactDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="contactDialog = false; contactId = -1; form.reset()">
+    @if(form && contactDialog) {
+        <form [formGroup]="form" (ngSubmit)="handleSubmit(form)">
+          <!-- Username Field -->
+          <div class="form-group">
+            <label for="firstName">firstName</label>
+            <input
+              id="firstName" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="firstName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastName">lastName</label>
+            <input
+              id="lastName" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="lastName"
+            />
+          </div>
+      
+          <!-- Password Field -->
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              id="email" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="gender">gender</label>
+            <input
+              id="gender" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="gender"
+            />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">phoneNumber</label>
+            <input
+              id="phoneNumber" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="phoneNumber"
+            />
+          </div>
+
+          <p-checkbox 
+          formControlName="hasLogin"
+          label="hasLogin" 
+          [binary]="true"
+          inputId="binary" />
+
+          <div class="form-group">
+            <label for="city">city</label>
+            <input
+              id="city" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="city"
+            />
+          </div>
+          <div class="form-group">
+            <label for="country">country</label>
+            <input
+              id="country" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="country"
+            />
+          </div>
+          <div class="form-group">
+            <label for="streetAddress">streetAddress</label>
+            <input
+              id="streetAddress" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="streetAddress"
+            />
+          </div>
+          <div class="form-group">
+            <label for="stateAddress">stateAddress</label>
+            <input
+              id="stateAddress" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="stateAddress"
+            />
+          </div>
+
+
+
+      
+          <!-- Submit Button -->
+          <button pButton type="submit" class="btn btn-primary" [label]="id && contactId?'Update':'Add'" [disabled]="!form.valid"></button>
+        </form>
+        }
+
+</p-dialog>
+

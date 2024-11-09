@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Login} from "../models/models";
+import {Account, Contact, Login} from "../models/models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -8,8 +8,11 @@ import {Observable} from "rxjs";
 })
 export class HttpService {
 
- private readonly baseUrl:string = 'http://localhost:8080/';
+//  private readonly baseUrl:string = 'http://localhost:8080/';
+ private readonly baseUrl:string = 'http://192.168.1.106:8080/';
  private loginEndpoint = 'api/login/userlogin'
+ private accountsEndpoint = 'api/account'
+ private contactEndpoint = 'api/contact'
 
 
   constructor(private httpClient: HttpClient) {}
@@ -23,6 +26,42 @@ export class HttpService {
     return this.httpClient.post<Login>(`${this.baseUrl}${this.loginEndpoint}`,loginCredentials);
   }
 
+    /**
+   *
+   *  handle login and create new user in the system
+   */
+    getAccounts(): Observable<Account[]> {
+      return this.httpClient.get<Account[]>(`${this.baseUrl}${this.accountsEndpoint}`);
+    }
+    addAccount(account: Account): Observable<Account> {
+      return this.httpClient.post<Account>(`${this.baseUrl}${this.accountsEndpoint}`, account);
+    }
+    deleteAccount(id: number): Observable<Account> {
+      return this.httpClient.delete<Account>(`${this.baseUrl}${this.accountsEndpoint}/${id}`);
+    }
+    editAccount(account: Account): Observable<Account> {
+      return this.httpClient.put<Account>(`${this.baseUrl}${this.accountsEndpoint}`, account);
+    }
+    getAccountById(id: number): Observable<Account> {
+      return this.httpClient.get<Account>(`${this.baseUrl}${this.accountsEndpoint}/${id}`);
+    }
+  
+    getAllContactByAccountId(id: number): Observable<Contact[]> {
+      return this.httpClient.get<Contact[]>(`${this.baseUrl}${this.contactEndpoint}/account/${id}`);
+    }
+
+    addContact(contact: Contact): Observable<Contact> {
+      return this.httpClient.post<Contact>(`${this.baseUrl}${this.contactEndpoint}`, contact);
+    }
+    getContact(): Observable<Contact> {
+      return this.httpClient.get<Contact>(`${this.baseUrl}${this.contactEndpoint}`);
+    }
+    editContact(contact: Contact): Observable<Contact> {
+      return this.httpClient.put<Contact>(`${this.baseUrl}${this.contactEndpoint}`, contact);
+    }
+    deleteContact(id: number): Observable<Contact> {
+      return this.httpClient.delete<Contact>(`${this.baseUrl}${this.contactEndpoint}/${id}`);
+    }
 
 
 }

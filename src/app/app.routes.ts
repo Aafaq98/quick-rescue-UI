@@ -4,6 +4,8 @@ import { ClientComponent } from './client/client.component';
 import { inject } from '@angular/core';
 import { AuthService } from './service/auth.service';
 import { AccountListComponent } from './client/account-list/account-list.component';
+import { authGuard } from './service/auth.guard';
+import { AccountComponent } from './client/account/account.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -11,15 +13,11 @@ export const routes: Routes = [
   {
     path: 'client',
     component: ClientComponent,
-    // children: [
-    //   { path: '', component: AccountListComponent },
-    // ]
-    // canActivate: [
-    //   () => {
-    //     const authService = inject(AuthService);
-    //     return authService.isLoggedIn() ? true : '/login';
-    //   },
-    // ],
+    canActivate: [authGuard],
+    children: [
+      { path: '', component: AccountListComponent },
+      { path: ':id', component: AccountComponent },
+    ]
   },
 ];
 

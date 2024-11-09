@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginBuilder } from '../api-builder/login-builder';
+import { HttpService } from '../service/http.service';
+import { Login } from '../models/models';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +23,12 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    // private authService: AuthService,
+    private  httpService: HttpService,
+    private  authService: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // username field with validation
+      username: ['', [Validators.required, Validators.email]], // username field with validation
       password: ['', [Validators.required]], // password field with validation
     });
   }
@@ -36,7 +39,18 @@ export class LoginComponent {
       return;
     }
     const payload = LoginBuilder.buildLogin(this.form.value);
-    console.log(payload);
+    this.httpService.login(payload).subscribe({
+      next: (login: Login) => {
+        this.authService.setToken(login);
+        if (this.authService.isAuthenticatedUser()) {
+          this.router.navigate(['client']);
+        }
+      },
+      error: (error: any) => {
+        console.error(error);
+      },
+    });
+
     // if (this.authService.login(payload)) {
     //   this.router.navigate(['/client']);
     // }

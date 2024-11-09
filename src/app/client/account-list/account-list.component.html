@@ -1,6 +1,60 @@
-<!-- <p>account-list works!</p> -->
-
-
-<div>
-    <div>Accounts</div>
+<div class="flex flex-row justify-content-between">
+    <h2>Accounts</h2>
+    <button pButton label="Add" (click)="handleAdd()"></button>
 </div>
+
+<div class="grid grid-nogutter">
+    @for (item of account; track $index) {
+        <div class="col-4 border-1 border-round text-center cursor-pointer " (click)="handleAccountSelect(item?.id)">
+            <div >{{item.name}}</div>
+            <div >{{item.emailDomain}}</div>
+            <div>
+                <button pButton label="Delete" [disabled]="item.name === 'QuickRescue'" (click)="handleDelete(item.id); $event.stopPropagation()"></button>
+                <button pButton label="Edit" (click)="handleEdit(item); $event.stopPropagation()"></button>
+            </div>
+        </div>
+       
+    }
+</div>
+
+<p-dialog header="Header" [(visible)]="accountDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="accountDialog = false; id = -1; form.reset()">
+    @if(form && accountDialog) {
+        <form [formGroup]="form" (ngSubmit)="handleSubmit(form)">
+          <!-- Username Field -->
+          <div class="form-group">
+            <label for="name">name</label>
+            <input
+              id="name" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="name"
+            />
+          </div>
+      
+          <!-- Password Field -->
+          <div class="form-group">
+            <label for="emailDomain">emailDomain</label>
+            <input
+              id="emailDomain" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="emailDomain"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="timeZoneCity">timeZoneCity</label>
+            <input
+              id="timeZoneCity" pInputText 
+              type="text"
+              class="form-control"
+              formControlName="timeZoneCity"
+            />
+          </div>
+      
+          <!-- Submit Button -->
+          <button pButton type="submit" class="btn btn-primary" [label]="id?'Update':'Add'" [disabled]="!form.valid"></button>
+        </form>
+        }
+
+</p-dialog>

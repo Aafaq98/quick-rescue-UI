@@ -1,7 +1,10 @@
 <div class="flex flex-row">
     <nav style="background-color: lightblue;">
         <ul>
-          <li><a routerLink="account"  routerLinkActive="active">Accounts</a></li>
+          <li><span>{{user?.contact?.firstName}}</span> <span>{{user?.contact?.lastName}}</span></li>
+          <li><span>Role:</span> <span>{{user?.contact?.role}}</span></li>
+          <li><a routerLink="/client"  routerLinkActive="active">Accounts</a></li>
+          <li><button (click)="handleLogout()">Log out</button></li>
         </ul>
       </nav>
     <div class="flex-1 p-3 border-1">
