@@ -1,0 +1,35 @@
+<!-- src/app/login/login.component.html -->
+<div class="login-container">
+  <h2>Login</h2>
+
+  @if(form) {
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <!-- Username Field -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="email"
+      />
+    </div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-control"
+        formControlName="password"
+      />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+      Login
+    </button>
+  </form>
+  }
+</div>

@@ -1,13 +1,26 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
+import { ClientComponent } from './client/client.component';
+import { inject } from '@angular/core';
+import { AuthService } from './service/auth.service';
+import { AccountListComponent } from './client/account-list/account-list.component';
 
 export const routes: Routes = [
-  {'path': 'home', component: HomeComponent},
-  {'path': 'about', component: AboutComponent},
-  {'path': 'contact', component: ContactComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'client',
+    component: ClientComponent,
+    children: [
+      { path: '', component: AccountListComponent },
+    ]
+    // canActivate: [
+    //   () => {
+    //     const authService = inject(AuthService);
+    //     return authService.isLoggedIn() ? true : '/login';
+    //   },
+    // ],
+  },
 ];
 
-export const routingComponents = [HomeComponent, AboutComponent, ContactComponent];
-
+export const routingComponents = [];
