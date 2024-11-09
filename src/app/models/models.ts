@@ -32,3 +32,8 @@ export interface Contact {
   account: Account;
   //alertProfile: AlertProfile | null; // Assuming AlertProfile is another model or type you have
 }
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  CONTACT = 'CONTACT',
+}

@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { LoginBuilder } from '../api-builder/login-builder';
 import { HttpService } from '../service/http.service';
-import { Login } from '../models/models';
+import { Login, UserRole } from '../models/models';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,11 @@ export class LoginComponent {
       next: (login: Login) => {
         this.authService.setToken(login);
         if (this.authService.isAuthenticatedUser()) {
-          this.router.navigate(['client']);
+          if(this.authService.getRole() === UserRole.ADMIN){
+            this.router.navigate(['client']);
+          } else {
+            this.router.navigate(['client', this.authService.getAccountId()]);
+          }
         }
       },
       error: (error: any) => {

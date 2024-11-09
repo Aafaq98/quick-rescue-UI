@@ -6,6 +6,8 @@ import { AuthService } from './service/auth.service';
 import { AccountListComponent } from './client/account-list/account-list.component';
 import { authGuard } from './service/auth.guard';
 import { AccountComponent } from './client/account/account.component';
+import { roleGuard } from './service/role.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,10 +17,28 @@ export const routes: Routes = [
     component: ClientComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', component: AccountListComponent },
-      { path: ':id', component: AccountComponent },
-    ]
+      {
+        path: '',
+        component: AccountListComponent,
+        canActivate: [roleGuard],
+        data: {
+          roles: ['ADMIN'],
+        },
+      },
+      {
+        path: ':id',
+        component: AccountComponent,
+        canActivate: [roleGuard],
+        data: {
+          roles: ['ADMIN', 'CONTACT'],
+        },
+      },
+    ],
   },
+  {
+    path: '**',  // The wildcard route
+    component: NotFoundComponent  // Display a "Not Found" page for undefined routes
+  }
 ];
 
 export const routingComponents = [];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {Login} from "../models/models";
+import {Login, UserRole} from "../models/models";
 import {HttpService} from "./http.service";
 import { Route } from '@angular/router';
 
@@ -33,6 +33,16 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('auth');
+  }
+
+  getRole(): UserRole | null {
+    const user = this.getToken()?.contact;
+    return (user?.role as UserRole) || null;
+  }
+
+  getAccountId(): number | null {
+    const accountId = this.getToken()?.contact?.account?.id;
+    return accountId ? accountId: null;
   }
 
 }
