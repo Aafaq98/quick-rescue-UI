@@ -21,7 +21,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    // private authService: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -36,8 +36,9 @@ export class LoginComponent {
       return;
     }
     const payload = LoginBuilder.buildLogin(this.form.value);
-    if (this.authService.login(payload.email, payload.password)) {
-      this.router.navigate(['/client']);
-    }
+    console.log(payload);
+    // if (this.authService.login(payload)) {
+    //   this.router.navigate(['/client']);
+    // }
   }
 }

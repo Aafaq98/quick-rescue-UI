@@ -11,9 +11,9 @@ export const routes: Routes = [
   {
     path: 'client',
     component: ClientComponent,
-    children: [
-      { path: '', component: AccountListComponent },
-    ]
+    // children: [
+    //   { path: '', component: AccountListComponent },
+    // ]
     // canActivate: [
     //   () => {
     //     const authService = inject(AuthService);
