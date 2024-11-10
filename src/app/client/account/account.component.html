@@ -7,7 +7,7 @@
         </div>
     }
 
-    <p-table [value]="contact" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table [value]="contact" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -34,6 +34,33 @@
         </ng-template>
     </p-table>
 
+  <p-table [value]="alertProfile" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>City</th>
+        <th>Country</th>
+        <th><button pButton label="add" (click)="handleAddAlert()"></button></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-i>
+      <tr>
+        <td><span>{{ i?.name }}</span></td>
+        <td>{{ i?.location?.city }}</td>
+        <td>{{ i?.location?.country }}</td>
+        <td>
+          <button pButton type="button" label="edit" (click)="handleEditAlert(i)"></button>
+          <button pButton type="button" label="delete" (click)="handleDeleteAlert(i.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="12">No recoard found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
 
 </div>
 
@@ -45,7 +72,7 @@
           <div class="form-group">
             <label for="firstName">firstName</label>
             <input
-              id="firstName" pInputText 
+              id="firstName" pInputText
               type="text"
               class="form-control"
               formControlName="firstName"
@@ -54,18 +81,18 @@
           <div class="form-group">
             <label for="lastName">lastName</label>
             <input
-              id="lastName" pInputText 
+              id="lastName" pInputText
               type="text"
               class="form-control"
               formControlName="lastName"
             />
           </div>
-      
+
           <!-- Password Field -->
           <div class="form-group">
             <label for="email">email</label>
             <input
-              id="email" pInputText 
+              id="email" pInputText
               type="text"
               class="form-control"
               formControlName="email"
@@ -74,7 +101,7 @@
           <div class="form-group">
             <label for="gender">gender</label>
             <input
-              id="gender" pInputText 
+              id="gender" pInputText
               type="text"
               class="form-control"
               formControlName="gender"
@@ -83,23 +110,23 @@
           <div class="form-group">
             <label for="phoneNumber">phoneNumber</label>
             <input
-              id="phoneNumber" pInputText 
+              id="phoneNumber" pInputText
               type="text"
               class="form-control"
               formControlName="phoneNumber"
             />
           </div>
 
-          <p-checkbox 
+          <p-checkbox
           formControlName="hasLogin"
-          label="hasLogin" 
+          label="hasLogin"
           [binary]="true"
           inputId="binary" />
 
           <div class="form-group">
             <label for="city">city</label>
             <input
-              id="city" pInputText 
+              id="city" pInputText
               type="text"
               class="form-control"
               formControlName="city"
@@ -108,7 +135,7 @@
           <div class="form-group">
             <label for="country">country</label>
             <input
-              id="country" pInputText 
+              id="country" pInputText
               type="text"
               class="form-control"
               formControlName="country"
@@ -117,7 +144,7 @@
           <div class="form-group">
             <label for="streetAddress">streetAddress</label>
             <input
-              id="streetAddress" pInputText 
+              id="streetAddress" pInputText
               type="text"
               class="form-control"
               formControlName="streetAddress"
@@ -126,7 +153,7 @@
           <div class="form-group">
             <label for="stateAddress">stateAddress</label>
             <input
-              id="stateAddress" pInputText 
+              id="stateAddress" pInputText
               type="text"
               class="form-control"
               formControlName="stateAddress"
@@ -135,11 +162,52 @@
 
 
 
-      
+
           <!-- Submit Button -->
           <button pButton type="submit" class="btn btn-primary" [label]="id && contactId?'Update':'Add'" [disabled]="!form.valid"></button>
         </form>
         }
+
+</p-dialog>
+
+<p-dialog header="Header" [(visible)]="alertDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="alertDialog = false; alertId = -1; alertForm.reset()">
+  @if(alertForm && alertDialog) {
+    <form [formGroup]="alertForm" (ngSubmit)="handleSubmitAlert(alertForm)">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="name">name</label>
+        <input
+          id="name" pInputText
+          type="text"
+          class="form-control"
+          formControlName="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">city</label>
+        <input
+          id="city" pInputText
+          type="text"
+          class="form-control"
+          formControlName="city"
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="country">country</label>
+        <input
+          id="country" pInputText
+          type="text"
+          class="form-control"
+          formControlName="country"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button pButton type="submit" class="btn btn-primary" [label]="id && alertId?'Update':'Add'" [disabled]="!alertForm.valid"></button>
+    </form>
+  }
 
 </p-dialog>
 

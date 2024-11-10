@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Account, Contact, Login} from "../models/models";
+import {Account, AlertProfile, Contact, Login} from "../models/models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -8,11 +8,12 @@ import {Observable} from "rxjs";
 })
 export class HttpService {
 
-//  private readonly baseUrl:string = 'http://localhost:8080/';
- private readonly baseUrl:string = 'http://192.168.1.106:8080/';
+ private readonly baseUrl:string = 'http://localhost:8080/';
+//  private readonly baseUrl:string = 'http://192.168.1.106:8080/';
  private loginEndpoint = 'api/login/userlogin'
  private accountsEndpoint = 'api/account'
  private contactEndpoint = 'api/contact'
+ private alertProfileEndpoint = 'api/alertprofile'
 
 
   constructor(private httpClient: HttpClient) {}
@@ -45,7 +46,7 @@ export class HttpService {
     getAccountById(id: number): Observable<Account> {
       return this.httpClient.get<Account>(`${this.baseUrl}${this.accountsEndpoint}/${id}`);
     }
-  
+
     getAllContactByAccountId(id: number): Observable<Contact[]> {
       return this.httpClient.get<Contact[]>(`${this.baseUrl}${this.contactEndpoint}/account/${id}`);
     }
@@ -61,6 +62,22 @@ export class HttpService {
     }
     deleteContact(id: number): Observable<Contact> {
       return this.httpClient.delete<Contact>(`${this.baseUrl}${this.contactEndpoint}/${id}`);
+    }
+
+    getAllAlertProfileByAccountId(id: number): Observable<AlertProfile[]> {
+      return this.httpClient.get<AlertProfile[]>(`${this.baseUrl}${this.alertProfileEndpoint}/account/${id}`);
+    }
+
+    addAlertProfile(alertProfile: AlertProfile): Observable<AlertProfile> {
+      return this.httpClient.post<AlertProfile>(`${this.baseUrl}${this.alertProfileEndpoint}`, alertProfile);
+    }
+
+    editAlertProfile(alertProfile: AlertProfile): Observable<AlertProfile> {
+      return this.httpClient.put<AlertProfile>(`${this.baseUrl}${this.alertProfileEndpoint}`, alertProfile);
+    }
+
+    deleteAlertProfile(id: number): Observable<AlertProfile> {
+      return this.httpClient.delete<AlertProfile>(`${this.baseUrl}${this.alertProfileEndpoint}/${id}`);
     }
 
 
