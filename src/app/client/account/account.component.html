@@ -6,7 +6,7 @@
             <span>{{account.emailDomain}}</span>
         </div>
     }
-
+  <h3 class="beautiful-heading align-content-center">Contact list</h3>
   <p-table [value]="contact" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -34,13 +34,15 @@
         </ng-template>
     </p-table>
 
-  <p-table [value]="alertProfile" [tableStyle]="{ 'min-width': '50rem' }">
+  <div class="div-control">
+    <h3 class="beautiful-heading align-content-center">Alerts Profiles</h3>
+  <p-table   [value]="alertProfile" [tableStyle]="{ 'min-width': '40rem' }" styleClass="p-datatable-gridlines" >
     <ng-template pTemplate="header">
-      <tr>
+      <tr class="bg-dark text-white">
         <th>Name</th>
         <th>City</th>
         <th>Country</th>
-        <th><button pButton label="add" (click)="handleAddAlert()"></button></th>
+        <th><button pButton class="btn btn-primary" (click)="handleAddAlert()">add</button></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-i>
@@ -49,8 +51,8 @@
         <td>{{ i?.location?.city }}</td>
         <td>{{ i?.location?.country }}</td>
         <td>
-          <button pButton type="button" label="edit" (click)="handleEditAlert(i)"></button>
-          <button pButton type="button" label="delete" (click)="handleDeleteAlert(i.id)"></button>
+          <button  type="button" class="btn btn-success"  (click)="handleEditAlert(i)">edit</button>
+          <button  type="button" class="btn btn-danger" (click)="handleDeleteAlert(i.id)">delete</button>
         </td>
       </tr>
     </ng-template>
@@ -61,9 +63,8 @@
     </ng-template>
   </p-table>
 
-
 </div>
-
+</div>
 
 <p-dialog header="Header" [(visible)]="contactDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="contactDialog = false; contactId = -1; form.reset()">
     @if(form && contactDialog) {

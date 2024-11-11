@@ -1,10 +1,11 @@
-<!-- src/app/login/login.component.html -->
-<div class="login-container">
-  <h2>Login</h2>
+
+<div class="login-container container ">
 
   @if(form) {
-  <form [formGroup]="form" (ngSubmit)="login()">
-    <!-- Username Field -->
+  <form class="container custom-form" [formGroup]="form" (ngSubmit)="login()">
+
+    <h2 class="h1">Login</h2>
+    <p>Please login to your account</p>
     <div class="form-group">
       <label for="username">Username</label>
       <input
@@ -26,8 +27,7 @@
       />
     </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!form.valid">
       Login
     </button>
   </form>

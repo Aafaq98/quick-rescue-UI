@@ -1,12 +1,15 @@
-<div class="flex flex-row">
-    <nav style="background-color: lightblue;">
-        <ul>
-          <li><span>{{user?.contact?.firstName}}</span> <span>{{user?.contact?.lastName}}</span></li>
-          <li><span>Role:</span> <span>{{user?.contact?.role}}</span></li>
+<div class="flex flex-row  ">
+
+
+    <nav  class="nav-bar">
+      <ul>
+          <label class="d-block"><span>{{user?.contact?.firstName}}</span> <span>{{user?.contact?.lastName}}</span></label>
+          <label class="d-block"> <span>Role:</span> <span>{{user?.contact?.role}}</span></label>
           <li><a routerLink="/client"  routerLinkActive="active">Accounts</a></li>
-          <li><button (click)="handleLogout()">Log out</button></li>
+          <button (click)="handleLogout()" class="btn btn-dark">Log out</button>
         </ul>
       </nav>
+
     <div class="flex-1 p-3 border-1">
         <router-outlet></router-outlet>
     </div>

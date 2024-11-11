@@ -1,0 +1,52 @@
+
+
+.my-class {
+
+
+
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 8px;
+}
+
+
+.custom-form {
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+button[type="submit"] {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.form-group {
+  margin-bottom: 1px;
+}
+
+
+.form-group label {
+  margin-bottom: 1px;
+}
+
+
+.form-control {
+  padding: 8px;
+  font-size: 14px;
+}

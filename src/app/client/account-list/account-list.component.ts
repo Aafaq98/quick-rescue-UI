@@ -7,11 +7,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { InputTextModule } from 'primeng/inputtext';
 import { AccountBuilder } from '../../api-builder/account-builder';
 import { Router } from '@angular/router';
+import {ToastrModule, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-account-list',
   standalone: true,
-  imports: [DialogModule,ButtonModule, ReactiveFormsModule, InputTextModule],
+  imports: [DialogModule,  ToastrModule, ButtonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './account-list.component.html',
   styleUrl: './account-list.component.css',
 })
@@ -20,7 +21,7 @@ export class AccountListComponent implements OnInit {
   accountDialog = false;
   form!: FormGroup;
   id!: number;
-  constructor(private httpService: HttpService, private fb: FormBuilder, private router: Router){
+  constructor(private httpService: HttpService ,private fb: FormBuilder, private router: Router){
     this.form = this.fb.group({
       name: ['', [Validators.required]], // username field with validation
       emailDomain: ['', [Validators.required, Validators.email]], // password field with validation
@@ -35,7 +36,7 @@ export class AccountListComponent implements OnInit {
     this.httpService.getAccounts().subscribe({
       next: (account: Account[]) => {
         this.account = account;
-      },
+        },
       error: (error: any) => {
         console.error(error);
       },

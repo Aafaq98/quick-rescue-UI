@@ -11,11 +11,13 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ContactBuilder } from '../../api-builder/contact-builder';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {AlertBuilder} from "../../api-builder/alert-builder";
+import {ToastrModule} from "ngx-toastr";
+
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [RouterLink,DialogModule,ButtonModule, ReactiveFormsModule, InputTextModule, TableModule, CheckboxModule, RadioButtonModule  ],
+  imports: [RouterLink,DialogModule,ToastrModule,ButtonModule, ReactiveFormsModule, InputTextModule, TableModule, CheckboxModule, RadioButtonModule  ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

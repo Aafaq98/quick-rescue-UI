@@ -1,0 +1,21 @@
+
+
+
+.nav-bar {
+  width: 200px;
+  background-color: #1a1a8b;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 700px;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.div-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+}
